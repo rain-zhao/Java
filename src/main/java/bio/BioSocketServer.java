@@ -1,3 +1,5 @@
+package bio;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
@@ -5,20 +7,19 @@ import java.net.Socket;
 import java.net.SocketAddress;
 
 public class BioSocketServer {
-    public static void server(){
+    public static void server() {
         ServerSocket serverSocket = null;
         InputStream in = null;
-        try
-        {
+        try {
             serverSocket = new ServerSocket(8080);
             int recvMsgSize = 0;
             byte[] recvBuf = new byte[1024];
-            while(true){
+            while (true) {
                 Socket clientSocket = serverSocket.accept();
                 SocketAddress addr = clientSocket.getRemoteSocketAddress();
-                System.out.println("Handling client at "+addr);
+                System.out.println("Handling client at " + addr);
                 in = clientSocket.getInputStream();
-                while((recvMsgSize=in.read(recvBuf))!=-1){
+                while ((recvMsgSize = in.read(recvBuf)) != -1) {
                     byte[] temp = new byte[recvMsgSize];
                     System.arraycopy(recvBuf, 0, temp, 0, recvMsgSize);
                     System.out.println(new String(temp));
@@ -26,20 +27,17 @@ public class BioSocketServer {
                 }
             }
 
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
-        }
-        finally{
-            try{
-                if(serverSocket!=null){
+        } finally {
+            try {
+                if (serverSocket != null) {
                     serverSocket.close();
                 }
-                if(in!=null){
+                if (in != null) {
                     in.close();
                 }
-            }catch(IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }

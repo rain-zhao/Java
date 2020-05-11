@@ -1,3 +1,5 @@
+package bio;
+
 /**
  * 测试for(;;)和 while(true)
  */
